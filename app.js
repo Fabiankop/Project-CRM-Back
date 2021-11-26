@@ -4,6 +4,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var database = require("./config/database");
+const cors = require("cors");
 
 var indexRouter = require("./routes/index");
 var authRouter = require("./routes/auth.router");
@@ -14,6 +15,7 @@ var repuestosRouter = require("./routes/repuestos.router");
 var accesoriosRouter = require("./routes/accesorios.router");
 
 var app = express();
+app.use(cors());
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -27,12 +29,12 @@ database.mongoConnect();
 // Router
 
 app.use("/", indexRouter);
-app.use("/api/usuarios", usuariosRouter);
+app.use("/api/empleados", empleadosRouter);
 app.use("/auth", authRouter);
 
 /* 
+app.use("/api/bicicletas", empleadosRouter);
 app.use("/api/empleados", usersRouter);
-app.use("/api/bicicletas", productsRouter);
 app.use("/api/repuestos", ordersRouter); 
 app.use("/api/accesorios", ordersRouter);
 app.use("/api/ordenes", ordersRouter);*/
