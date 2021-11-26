@@ -4,10 +4,11 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var database = require("./config/database");
+var cors = require("cors");
 
 var indexRouter = require("./routes/index");
 var authRouter = require("./routes/auth.router");
-var usuariosRouter = require("./routes/usuarios.router");
+/* var usuariosRouter = require("./routes/usuarios.router"); */
 var empleadosRouter = require("./routes/empleados.router");
 var bicicletasRouter = require("./routes/bicicletas.router");
 var repuestosRouter = require("./routes/repuestos.router");
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(cors());
 
 // DB mongo connection
 database.mongoConnect();
@@ -27,12 +29,11 @@ database.mongoConnect();
 // Router
 
 app.use("/", indexRouter);
-app.use("/api/usuarios", usuariosRouter);
+/* app.use("/api/usuarios", usuariosRouter); */
 app.use("/auth", authRouter);
 
-/* 
-app.use("/api/empleados", usersRouter);
-app.use("/api/bicicletas", productsRouter);
+app.use("/api/empleados", empleadosRouter);
+/*app.use("/api/bicicletas", productsRouter);
 app.use("/api/repuestos", ordersRouter); 
 app.use("/api/accesorios", ordersRouter);
 app.use("/api/ordenes", ordersRouter);*/
